@@ -9,13 +9,7 @@ const personaPost = async (req, res = response) => {
     const persona = new Persona({nombre, apellido, email, alias});
 
     // Verificar si el correo existe
-    const existeEmail = await Persona.findOne({ email });
-    if( existeEmail ) {
-        return res.status(400).json({
-            msg: "El correo ya está registrado"
-        })
-    }
-
+    
     // Guardar en la DB
     await persona.save();
     

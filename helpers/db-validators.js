@@ -18,8 +18,36 @@ const validarPersona = async ( id = '' ) => {
         }
     }
   }
+  
+const existeMail = async ( email ) => {
+  const existeEmail = await Persona.findOne({ email });
+    if( existeEmail ) {
+      throw new Error(`Ya existe el correo ${email} en la base de datos`);
+    }
+}
+
+
+const existeCategoria = async (categoria) => {
+  let nombre = categoria.toUpperCase();
+  const laCate = await Categoria.findOne({ nombre });
+  if( laCate ) {
+      throw new Error(`Ya existe la categoría ${nombre} en la base de datos`);
+  }
+
+}
+
+const existeId = async (id) => {
+  const elId = await Categoria.findById({ _id:id });
+  if( !elId ) {
+      throw new Error(`No existe id ${id} en la base de datos`);
+  }
+
+}
 
 module.exports = {
     validarCategoria,
-    validarPersona
+    validarPersona,
+    existeMail,
+    existeCategoria,
+    existeId
 }

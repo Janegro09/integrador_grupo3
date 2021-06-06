@@ -6,57 +6,36 @@ const Categoria = require('../models/categoria');
 
 const categoriaPost = async (req, res = response) => {
 
-    const { nombre } = req.body;
-
+    let { nombre } = req.body;
+    nombre = nombre.toUpperCase();
     const categoria = new Categoria( {nombre} );
-    console.log(categoria)
-    const existeCategoria = await Categoria.findOne({ nombre });
-    console.log(existeCategoria)
-    if( existeCategoria ) {
-        return res.status(400).json({
-            msg: `La categoria ${nombre} ya está registrada`
-        })
-    }
 
     // Guardar en la DB
     await categoria.save();
     const {id} = categoria;
+    
     res.json({
         nombre,
         id
     });
 }
 
-const categoriaGet = (req, res = response) => {
+const categoriaGet = async (req, res = response) => {
 
+    let categorias = await Categoria.find();
+    
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        categorias
     });
 }
 
-const categoriaGetUno = (req, res = response) => {
-
+const categoriaGetUno = async (req, res = response) => {
+    let { id } = req.params
+    let categorias = await Categoria.findOne({_id:id});
+    const { nombre, _id} = categorias; 
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
-    });
-}
-
-const categoriaPut = (req, res = response) => {
-
-    res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        _id,
+        nombre
     });
 }
 
@@ -76,7 +55,6 @@ module.exports = {
     categoriaPost,
     categoriaGet,
     categoriaGetUno,
-    categoriaPut,
     categoriaDelete
 }
 

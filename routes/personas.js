@@ -7,6 +7,7 @@ const {
     personaPut, 
     personaGetUno, 
     personaDelete } = require('../controller/personas');
+const { existeMail } = require('../helpers/db-validators');
 const { validarCampos } = require('../middlewares/validar-campos');
 
 const router = Router();
@@ -16,6 +17,7 @@ router.post('/', [
     check('apellido','El apellido no debe ser vacio').not().isEmpty(),
     check('alias','El alias no debe ser vacio').not().isEmpty(),
     check('email','El correo no es válido').isEmail(),
+    check('email').custom( existeMail ),
     validarCampos
 ] ,personaPost);
 

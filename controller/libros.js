@@ -33,6 +33,7 @@ const libroPost = async (req, res = response) => {
 
 const libroGet = (req, res = response) => {
 
+    
     res.json({
         id: "numerico",
         nombre:"string",

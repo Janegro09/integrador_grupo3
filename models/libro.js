@@ -30,5 +30,8 @@ const LibroSchema = Schema({
 
 });
 
+LibroSchema.methods.toJSON = function() {
+    const { __v } = this.toObject();
+}
 
 module.exports = model( 'Libro', LibroSchema )

@@ -26,5 +26,8 @@ const PersonaSchema = Schema({
 
 });
 
+// PersonaSchema.methods.toJSON = function() {
+//     const { __v } = this.toObject();
+// }
 
 module.exports = model( 'Personas', PersonaSchema )
