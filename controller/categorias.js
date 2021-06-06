@@ -1,25 +1,24 @@
 
 const { response } = require('express');
 const { validationResult } = require('express-validator');
-const Categoria = require('../models/categorias');
+const Categoria = require('../models/categoria');
 
 
 const categoriaPost = async (req, res = response) => {
 
-    const { nombre } = req.body;
-    const categoria = new Categoria({ nombre });
+    const { categoria } = req.body;
+    const nuevaCategoria = new Categoria({ categoria });
+    const nuevoNombre = nuevaCategoria.categoria;
     
-    const existeNombre = await Categoria.findOne({ nombre });
-    if( existeNombre ) {
+    const existeCategoria = await Categoria.findOne({ categoria:nuevoNombre });
+    if( existeCategoria ) {
         return res.status(400).json({
-            msg: "La categoría ya está registrada"
+            msg: `La categoria ${nuevoNombre} ya está registrada`
         })
     }
 
-    // Verificamos si es un correo válido
-
     // Guardar en la DB
-    await categoria.save();
+    await nuevaCategoria.save();
 
     res.json({
         categoria

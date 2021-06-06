@@ -2,7 +2,7 @@
 const { response } = require('express');
 const { validationResult } = require('express-validator');
 
-const Libro = require('../models/libros');
+const Libro = require('../models/libro');
 
 
 const libroPost = async (req, res = response) => {

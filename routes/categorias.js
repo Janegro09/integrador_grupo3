@@ -12,7 +12,7 @@ const router = Router();
 
 
 router.post('/', [
-    check('nombre','El nombre de la categoria no debe ser vacio').not().isEmpty(),
+    check('categoria','El nombre de la categoria no debe ser vacio').not().isEmpty(),
     validarCampos
 ],categoriaPost);
 

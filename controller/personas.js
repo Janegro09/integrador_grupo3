@@ -1,7 +1,7 @@
 
 const { response } = require('express');
 
-const Persona = require('../models/personas')
+const Persona = require('../models/persona')
 
 const personaPost = async (req, res = response) => {
 
