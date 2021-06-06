@@ -5,7 +5,6 @@ const Persona = require('../models/persona')
 
 const personaPost = async (req, res = response) => {
 
-    
     const { nombre, apellido, email, alias} = req.body;
     const persona = new Persona({nombre, apellido, email, alias});
 
@@ -17,12 +16,8 @@ const personaPost = async (req, res = response) => {
         })
     }
 
-    // Verificamos si es un correo válido
-
-
     // Guardar en la DB
     await persona.save();
-
     
     res.json({
         persona

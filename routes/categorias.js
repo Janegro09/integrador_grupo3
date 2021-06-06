@@ -20,8 +20,6 @@ router.get('/', categoriaGet);
 
 router.get('/:id', categoriaGetUno);
 
-router.put('/', categoriaPut);
-
 router.delete('/', categoriaDelete);
 
 

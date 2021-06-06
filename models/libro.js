@@ -21,6 +21,7 @@ const LibroSchema = Schema({
     },
     persona_id: {
         type:String,
+        default:null
     },
     estado: {
         type: Boolean,
