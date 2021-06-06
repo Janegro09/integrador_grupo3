@@ -17,7 +17,7 @@ const LibroSchema = Schema({
     },
     categoria: {
         type: String,
-        required: [true, 'La categoria es obligatoria']
+        required: [true, 'La categoria del libro es obligatoria']
     },
     persona_id: {
         type:String,

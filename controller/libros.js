@@ -1,10 +1,16 @@
 
 const { response } = require('express');
+const { validationResult } = require('express-validator');
 
 const Libro = require('../models/libros');
 
 
 const libroPost = async (req, res = response) => {
+
+    const errors = validationResult(req);
+    if( !errors.isEmpty() ) {
+        return res.status(400).json(errors);
+    }
 
     const { nombre, descripcion, categoria, persona_id} = req.body;
     const libro = new Libro({ nombre, descripcion, categoria, persona_id});
@@ -17,21 +23,11 @@ const libroPost = async (req, res = response) => {
         });
     }
 
-    // Verificamos si es un correo válido
-
     // Guardar en la DB
     await libro.save();
     
     res.json({
         libro
-    });
-
-    res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
     });
 }
 

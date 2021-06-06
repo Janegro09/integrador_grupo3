@@ -1,16 +1,11 @@
 
 const { response } = require('express');
-const { validationResult } = require('express-validator');
 
 const Persona = require('../models/personas')
 
 const personaPost = async (req, res = response) => {
 
-    const errors = validationResult(req);
-    if( !errors.isEmpty() ) {
-        return res.status(400).json(errors);
-    }
-
+    
     const { nombre, apellido, email, alias} = req.body;
     const persona = new Persona({nombre, apellido, email, alias});
 
@@ -30,7 +25,6 @@ const personaPost = async (req, res = response) => {
 
     
     res.json({
-        msg:"persona post",
         persona
     });
 }
