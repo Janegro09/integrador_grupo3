@@ -20,9 +20,10 @@ const categoriaPost = async (req, res = response) => {
 
     // Guardar en la DB
     await categoria.save();
-
+    const {id} = categoria;
     res.json({
-        categoria
+        nombre,
+        id
     });
 }
 
