@@ -6,19 +6,20 @@ const Categoria = require('../models/categoria');
 
 const categoriaPost = async (req, res = response) => {
 
-    const { categoria } = req.body;
-    const nuevaCategoria = new Categoria({ categoria });
-    const nuevoNombre = nuevaCategoria.categoria;
-    
-    const existeCategoria = await Categoria.findOne({ categoria:nuevoNombre });
+    const { nombre } = req.body;
+
+    const categoria = new Categoria( {nombre} );
+    console.log(categoria)
+    const existeCategoria = await Categoria.findOne({ nombre });
+    console.log(existeCategoria)
     if( existeCategoria ) {
         return res.status(400).json({
-            msg: `La categoria ${nuevoNombre} ya está registrada`
+            msg: `La categoria ${nombre} ya está registrada`
         })
     }
 
     // Guardar en la DB
-    await nuevaCategoria.save();
+    await categoria.save();
 
     res.json({
         categoria
