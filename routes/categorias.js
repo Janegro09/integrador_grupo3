@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
+
 const { 
     existeCategoria, 
     existeId } = require('../helpers/db-validators');
+
 const { 
     categoriaPost, 
     categoriaGet, 
@@ -27,7 +29,11 @@ router.get('/:id',[
     validarCampos
 ], categoriaGetUno);
 
-router.delete('/', categoriaDelete);
+router.delete('/:id',[
+    check('id', 'No es un id válido').isMongoId(),
+    check('id').custom( existeId ),
+    validarCampos
+], categoriaDelete);
 
 
 module.exports = router;

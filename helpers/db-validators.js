@@ -20,6 +20,7 @@ const validarPersona = async ( id = '' ) => {
   }
   
 const existeMail = async ( email ) => {
+
   const existeEmail = await Persona.findOne({ email });
     if( existeEmail ) {
       throw new Error(`Ya existe el correo ${email} en la base de datos`);
@@ -28,6 +29,7 @@ const existeMail = async ( email ) => {
 
 
 const existeCategoria = async (categoria) => {
+
   let nombre = categoria.toUpperCase();
   const laCate = await Categoria.findOne({ nombre });
   if( laCate ) {
@@ -37,7 +39,9 @@ const existeCategoria = async (categoria) => {
 }
 
 const existeId = async (id) => {
-  const elId = await Categoria.findById({ _id:id });
+
+  const elId = await Categoria.findById( id );
+  
   if( !elId ) {
       throw new Error(`No existe id ${id} en la base de datos`);
   }

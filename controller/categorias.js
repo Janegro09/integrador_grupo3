@@ -1,7 +1,9 @@
 
 const { response } = require('express');
 const { validationResult } = require('express-validator');
+const { validarCategoria } = require('../helpers/db-validators');
 const Categoria = require('../models/categoria');
+const Libro = require('../models/libro');
 
 
 const categoriaPost = async (req, res = response) => {
@@ -39,14 +41,14 @@ const categoriaGetUno = async (req, res = response) => {
     });
 }
 
-const categoriaDelete = (req, res = response) => {
+const categoriaDelete = async (req, res = response) => {
+
+    const { id } = req.params;
+    let msg;
+    const { nombre } = await Categoria.findById(id);
 
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        nombre
     });
 }
 
