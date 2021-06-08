@@ -1,4 +1,5 @@
 const Categoria = require('../models/categoria');
+const libro = require('../models/libro');
 const Persona = require('../models/persona');
 
 
@@ -52,8 +53,7 @@ const existeId = async (id) => {
   const existeEnLibros = async (id) => {
     
     const { nombre } = await Categoria.findById( id );
-    console.log( nombre );
-    const encontradoEnLibros = await existeEnLibros.findOne( {categoria:nombre} )
+    const encontradoEnLibros = await libro.findOne( {categoria:nombre} )
     if( encontradoEnLibros ) {
       throw new Error(`No se puede borrar la categoria ${nombre} porque está siendo usada`);
   }

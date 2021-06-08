@@ -12,7 +12,12 @@ const libroPost = async (req, res = response) => {
         return res.status(400).json(errors);
     }
 
-    const { nombre, descripcion, categoria, persona_id} = req.body;
+    let { nombre, descripcion, categoria, persona_id} = req.body;
+    
+    nombre      = nombre.toUpperCase();
+    descripcion = descripcion.toUpperCase();
+    categoria   = categoria.toUpperCase();
+
     const libro = new Libro({ nombre, descripcion, categoria, persona_id});
 
     // Verificar si el nombre del libro existe

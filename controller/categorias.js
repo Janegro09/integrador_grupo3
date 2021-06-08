@@ -44,11 +44,14 @@ const categoriaGetUno = async (req, res = response) => {
 const categoriaDelete = async (req, res = response) => {
 
     const { id } = req.params;
-    let msg;
-    const { nombre } = await Categoria.findById(id);
+    // Borrado fisico
+    const { nombre } = await Categoria.findByIdAndDelete(id);
 
+    // Borrado logico
+    // const { nombre } = await Categoria.findByIdAndUpdate({estado:false});
+    
     res.json({
-        nombre
+        msj: "Categoria borrada correctamente"
     });
 }
 
