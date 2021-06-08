@@ -2,7 +2,8 @@ const Categoria = require('../models/categoria');
 const Persona = require('../models/persona');
 
 
-const validarCategoria = async ( nombre = '' ) => {
+const validarCategoria = async ( categoria = '' ) => {
+    let nombre = categoria.toUpperCase();
     const existeCategoria = await Categoria.findOne( {nombre} );
     if(!existeCategoria) {
       throw new Error(`No existe la categoria en ${nombre} la base de datos`)
@@ -44,8 +45,18 @@ const existeId = async (id) => {
   
   if( !elId ) {
       throw new Error(`No existe id ${id} en la base de datos`);
+    }
+    
   }
-
+  
+  const existeEnLibros = async (id) => {
+    
+    const { nombre } = await Categoria.findById( id );
+    console.log( nombre );
+    const encontradoEnLibros = await existeEnLibros.findOne( {categoria:nombre} )
+    if( encontradoEnLibros ) {
+      throw new Error(`No se puede borrar la categoria ${nombre} porque está siendo usada`);
+  }
 }
 
 module.exports = {
@@ -53,5 +64,6 @@ module.exports = {
     validarPersona,
     existeMail,
     existeCategoria,
-    existeId
+    existeId,
+    existeEnLibros
 }
