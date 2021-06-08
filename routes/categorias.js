@@ -5,7 +5,7 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { 
     existeCategoria, 
     existeId,
-    existeEnLibros } = require('../helpers/db-validators');
+    existeCategoriaEnLibros } = require('../helpers/db-validators');
 
 const { 
     categoriaPost, 
@@ -33,7 +33,7 @@ router.get('/:id',[
 router.delete('/:id',[
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom( existeId ),
-    check('id').custom( existeEnLibros ),
+    check('id').custom( existeCategoriaEnLibros ),
     validarCampos
 ], categoriaDelete);
 

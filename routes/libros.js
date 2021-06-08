@@ -2,7 +2,10 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
-const { validarCategoria, validarPersona } = require('../helpers/db-validators');
+const { 
+  validarCategoria, 
+  validarPersona,
+  existeNombreLibro } = require('../helpers/db-validators');
 
 const { 
   libroPost, 
@@ -19,6 +22,7 @@ router.post('/',[
   check('categoria','La categoria es requerida').not().isEmpty(),
   check('categoria').custom( validarCategoria ),
   check('persona_id').custom( validarPersona ),
+  check('nombre').custom( existeNombreLibro ),
   validarCampos
 ], libroPost);
 
