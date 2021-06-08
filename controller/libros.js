@@ -6,19 +6,13 @@ const Libro = require('../models/libro');
 
 const libroPost = async(req, res = response) => {
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json(errors);
-    }
-
-    let { nombre, descripcion, categoria, persona_id } = req.body;
-
-    nombre = nombre.toUpperCase();
+    let { nombre, descripcion, categoria, persona_id} = req.body;
+    
+    nombre      = nombre.toUpperCase();
     descripcion = descripcion.toUpperCase();
-    categoria = categoria.toUpperCase();
+    categoria   = categoria.toUpperCase();
 
-    const libro = new Libro({ nombre, descripcion, categoria, persona_id });
-
+    const libro = new Libro({ nombre, descripcion, categoria, persona_id});
     // Guardar en la DB
     await libro.save();
 

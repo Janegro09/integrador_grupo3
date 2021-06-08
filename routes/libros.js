@@ -2,7 +2,10 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
-const { validarCategoria, validarPersona, existeCategoria, existeNombre } = require('../helpers/db-validators');
+const { 
+  validarCategoria, 
+  validarPersona,
+  existeNombreLibro } = require('../helpers/db-validators');
 
 const {
     libroPost,
@@ -14,13 +17,14 @@ const {
 
 const router = Router();
 
-router.post('/', [
-    check('nombre', 'El nombre es requerido').not().isEmpty(),
-    check('descripcion', 'La descripción es requerida').not().isEmpty(),
-    check('categoria', 'La categoria es requerida').not().isEmpty(),
-    check('categoria').custom(existeNombre),
-    check('persona_id').custom(validarPersona),
-    validarCampos
+router.post('/',[
+  check('nombre','El nombre es requerido').not().isEmpty(),
+  check('descripcion','La descripción es requerida').not().isEmpty(),
+  check('categoria','La categoria es requerida').not().isEmpty(),
+  check('categoria').custom( validarCategoria ),
+  check('persona_id').custom( validarPersona ),
+  check('nombre').custom( existeNombreLibro ),
+  validarCampos
 ], libroPost);
 
 router.get('/', libroGet);

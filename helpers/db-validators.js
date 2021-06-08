@@ -1,11 +1,20 @@
 const Categoria = require('../models/categoria');
+const Libro = require('../models/libro');
 const Persona = require('../models/persona');
 
 
+<<<<<<< HEAD
 const validarCategoria = async(nombre = '') => {
     const existeCategoria = await Categoria.findOne({ nombre });
     if (!existeCategoria) {
         throw new Error(`No existe la categoria en ${nombre} la base de datos`)
+=======
+const validarCategoria = async ( categoria = '' ) => {
+    let nombre = categoria.toUpperCase();
+    const existeCategoria = await Categoria.findOne( {nombre} );
+    if(!existeCategoria) {
+      throw new Error(`No existe la categoria en ${nombre} la base de datos`)
+>>>>>>> bac8cbbc9ad878b6e03ec2c8916e41439a219118
     }
 }
 
@@ -46,18 +55,32 @@ const existeId = async(id) => {
         throw new Error(`No existe id ${id} en la base de datos`);
     }
 
+  const elId = await Categoria.findById( id );
+  
+  if( !elId ) {
+      throw new Error(`No existe id ${id} en la base de datos`);
+    }
+    
+  }
+  
+  const existeCategoriaEnLibros = async (id) => {
+    
+    const { nombre } = await Categoria.findById( id );
+    const encontradoEnLibros = await Libro.findOne( {categoria:nombre} )
+    if( encontradoEnLibros ) {
+      throw new Error(`No se puede borrar la categoria ${nombre} porque está siendo usada`);
+  }
 }
 
-const existeNombre = async(nombreRecibido) => {
-
-    let nombre = nombreRecibido.toUpperCase();
-
-    let categoriaEncontrada = await Categoria.findOne({ nombre });
-
-    if (!categoriaEncontrada) {
-        throw new Error(`No existe la categoria ${nombre} en la base de datos`);
-    }
-
+const existeNombreLibro = async ( name ) => {
+    
+  let nombre = name.toUpperCase();
+  // Verificar si el nombre del libro existe
+  const existeNombre = await Libro.findOne({ nombre });
+  if( existeNombre ) {
+    throw new Error('El libro ya está registrado')
+  }
+  
 }
 
 module.exports = {
@@ -66,5 +89,6 @@ module.exports = {
     existeMail,
     existeCategoria,
     existeId,
-    existeNombre
+    existeCategoriaEnLibros,
+    existeNombreLibro
 }

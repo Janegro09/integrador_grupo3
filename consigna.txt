@@ -93,7 +93,14 @@ status 413, {mensaje: <descripcion del error>} "error inesperado", "no existe es
 POST '/libro' recibe: 
 {nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null} 
 Retorna:
-status 200 y {id: numero, nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null} o bien 
+status 200 y 
+{
+    id: numero, 
+    nombre:string, 
+    descripcion:string, 
+    categoria_id:numero, 
+    persona_id:numero/null
+} o bien 
 status 413 {mensaje: <descripcion del error>} que puede ser "error inesperado", "ese libro ya existe", "nombre y categoria son datos obligatorios", "no existe la categoria indicada", "no existe la persona indicada"
 
 GET '/libro' 
