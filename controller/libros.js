@@ -1,24 +1,27 @@
 
 const { response } = require('express');
-const { validationResult } = require('express-validator');
 
 const Libro = require('../models/libro');
 
 
 const libroPost = async (req, res = response) => {
 
-    let { nombre, descripcion, categoria, persona_id} = req.body;
+    let { nombre, descripcion, categoria_id, persona_id} = req.body;
     
     nombre      = nombre.toUpperCase();
     descripcion = descripcion.toUpperCase();
-    categoria   = categoria.toUpperCase();
 
-    const libro = new Libro({ nombre, descripcion, categoria, persona_id});
+    let libro = new Libro({ nombre, descripcion, categoria_id, persona_id});
     // Guardar en la DB
     await libro.save();
+    const {_id} = libro;
     
     res.json({
-        libro
+        _id,
+        nombre, 
+        descripcion, 
+        categoria_id, 
+        persona_id
     });
 }
 

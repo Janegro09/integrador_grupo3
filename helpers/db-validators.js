@@ -3,11 +3,10 @@ const Libro = require('../models/libro');
 const Persona = require('../models/persona');
 
 
-const validarCategoria = async ( categoria = '' ) => {
-    let nombre = categoria.toUpperCase();
-    const existeCategoria = await Categoria.findOne( {nombre} );
+const validarCategoria = async ( id = '' ) => {
+    const existeCategoria = await Categoria.findById( id );
     if(!existeCategoria) {
-      throw new Error(`No existe la categoria en ${nombre} la base de datos`)
+      throw new Error(`No existe la categoria en ${id} la base de datos`)
     }
   }
 
@@ -52,8 +51,7 @@ const existeId = async (id) => {
   
   const existeCategoriaEnLibros = async (id) => {
     
-    const { nombre } = await Categoria.findById( id );
-    const encontradoEnLibros = await Libro.findOne( {categoria:nombre} )
+    const encontradoEnLibros = await Categoria.findById( id );
     if( encontradoEnLibros ) {
       throw new Error(`No se puede borrar la categoria ${nombre} porque está siendo usada`);
   }

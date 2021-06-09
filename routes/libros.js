@@ -19,8 +19,9 @@ const router = Router();
 router.post('/',[
   check('nombre','El nombre es requerido').not().isEmpty(),
   check('descripcion','La descripción es requerida').not().isEmpty(),
-  check('categoria','La categoria es requerida').not().isEmpty(),
-  check('categoria').custom( validarCategoria ),
+  check('categoria_id','La categoria es requerida').not().isEmpty(),
+  check('categoria_id').isMongoId(),
+  check('categoria_id').custom( validarCategoria ),
   check('persona_id').custom( validarPersona ),
   check('nombre').custom( existeNombreLibro ),
   validarCampos

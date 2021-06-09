@@ -15,7 +15,7 @@ const LibroSchema = Schema({
         type: String,
         required: [true, 'La descripción del libro es obligatoria']
     },
-    categoria: {
+    categoria_id: {
         type: String,
         required: [true, 'La categoria del libro es obligatoria']
     },
@@ -30,8 +30,8 @@ const LibroSchema = Schema({
 
 });
 
-LibroSchema.methods.toJSON = function() {
-    const { __v } = this.toObject();
-}
+// LibroSchema.methods.toJSON = function() {
+//     const { __v } = this.toObject();
+// }
 
 module.exports = model( 'Libro', LibroSchema )
