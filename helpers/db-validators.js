@@ -49,6 +49,16 @@ const existeIdPersona = async ( id ) => {
   
 }
 
+const existeIdLibro = async ( id ) => {
+
+  const elId = await Libro.findById( id );
+
+  if( !elId ) {
+      throw new Error(`No existe id ${id} en la base de datos`);
+    }
+  
+}
+
 const existeId = async ( id ) => {
 
   const elId = await Categoria.findById( id );
@@ -95,5 +105,6 @@ module.exports = {
     existeIdPersona,
     existeCategoriaEnLibros,
     existeNombreLibro,
-    existeIdPersonaEnLibros
+    existeIdPersonaEnLibros,
+    existeIdLibro
 }

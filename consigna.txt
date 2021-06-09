@@ -127,7 +127,12 @@ status 413, {mensaje: <descripcion del error>} "error inesperado", "no existe es
 *LIBRO
 
 POST '/libro' recibe: 
-{nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null} 
+{
+    nombre:string, 
+    descripcion:string, 
+    categoria_id:numero, 
+    persona_id:numero/null
+    } 
 Retorna:
 status 200 y 
 {
@@ -141,7 +146,13 @@ status 413 {mensaje: <descripcion del error>} que puede ser "error inesperado", 
 
 GET '/libro' 
 Retorna
-status 200 y [{id: numero, nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null}] o bien 
+status 200 y [{
+    id: numero, 
+    nombre:string, 
+    descripcion:string, 
+    categoria_id:numero, 
+    persona_id:numero/null
+    }] o bien 
 status 413, {mensaje: <descripcion del error>} "error inesperado"
 
 GET '/libro/:id' devuelve 200 {id: numero, nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null} y status 413, {mensaje: <descripcion del error>} "error inesperado", "no se encuentra ese libro"

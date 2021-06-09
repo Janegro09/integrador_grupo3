@@ -25,26 +25,26 @@ const libroPost = async (req, res = response) => {
     });
 }
 
-const libroGet = (req, res = response) => {
+const libroGet = async (req, res = response) => {
 
-    
+    const libros = await Libro.find();
+
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        libros
     });
 }
 
-const libroGetUno = (req, res = response) => {
+const libroGetUno = async (req, res = response) => {
+
+    const { id } = req.params
+    const { nombre, descripcion, categoria_id, persona_id } = await Libro.findById(id)
 
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        id,
+        nombre,
+        descripcion,
+        categoria,
+        persona_id
     });
 }
 

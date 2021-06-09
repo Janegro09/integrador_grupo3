@@ -5,7 +5,8 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { 
   validarCategoria, 
   validarPersona,
-  existeNombreLibro } = require('../helpers/db-validators');
+  existeNombreLibro, 
+  existeIdLibro} = require('../helpers/db-validators');
 
 const { 
   libroPost, 
@@ -29,7 +30,11 @@ router.post('/',[
 
 router.get('/', libroGet);
 
-router.get('/:id', libroGetUno);
+router.get('/:id', [
+  check('id', 'No es un id válido').isMongoId(),
+  check('id').custom( existeIdLibro ),
+  validarCampos
+], libroGetUno);
 
 router.put('/', libroPut);
 
