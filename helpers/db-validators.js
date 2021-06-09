@@ -39,21 +39,30 @@ const existeCategoria = async (categoria) => {
 
 }
 
-const existeId = async (id) => {
+const existeIdPersona = async ( id ) => {
 
-  const elId = await Categoria.findById( id );
-  
+  const elId = await Persona.findById( id );
+
   if( !elId ) {
       throw new Error(`No existe id ${id} en la base de datos`);
     }
-    
-  }
   
-  const existeCategoriaEnLibros = async (id) => {
+}
+
+const existeId = async ( id ) => {
+
+  const elId = await Categoria.findById( id );
+
+  if( !elId ) {
+      throw new Error(`No existe id ${id} en la base de datos`);
+    }
+}
+  
+const existeCategoriaEnLibros = async (id) => {
     
-    const encontradoEnLibros = await Categoria.findById( id );
-    if( encontradoEnLibros ) {
-      throw new Error(`No se puede borrar la categoria ${nombre} porque está siendo usada`);
+  const encontradoEnLibros = await Categoria.findById( id );
+  if( encontradoEnLibros ) {
+    throw new Error(`No se puede borrar la categoria ${nombre} porque está siendo usada`);
   }
 }
 
@@ -74,6 +83,7 @@ module.exports = {
     existeMail,
     existeCategoria,
     existeId,
+    existeIdPersona,
     existeCategoriaEnLibros,
     existeNombreLibro
 }
