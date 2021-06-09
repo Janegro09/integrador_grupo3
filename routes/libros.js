@@ -36,9 +36,21 @@ router.get('/:id', [
   validarCampos
 ], libroGetUno);
 
-router.put('/', libroPut);
+router.put('/:id', [
+  check('id', 'No es un id válido').isMongoId(),
+  check('id').custom( existeIdLibro ),
+  check('nombre','El nombre es requerido').not().isEmpty(),
+  check('descripcion','La descripción es requerida').not().isEmpty(),
+  check('categoria_id','La categoria es requerida').not().isEmpty(),
+  check('categoria_id').isMongoId(),
+  check('categoria_id').custom( validarCategoria ),
+  check('persona_id').custom( validarPersona ),
+  check('nombre').custom( existeNombreLibro ),
+  validarCampos
 
-router.delete('/', libroDelete);
+], libroPut);
+
+router.delete('/:id', libroDelete);
 
 
 module.exports = router;

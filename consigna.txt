@@ -157,9 +157,21 @@ status 413, {mensaje: <descripcion del error>} "error inesperado"
 
 GET '/libro/:id' devuelve 200 {id: numero, nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null} y status 413, {mensaje: <descripcion del error>} "error inesperado", "no se encuentra ese libro"
 
-PUT '/libro/:id' y {id: numero, nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null}
+PUT '/libro/:id' y {
+    id: numero, 
+    nombre:string, 
+    descripcion:string, 
+    categoria_id:numero, 
+    persona_id:numero/null
+    }
 Retorna:
-status 200 y {id: numero, nombre:string, descripcion:string, categoria_id:numero, persona_id:numero/null} modificado o bien 
+status 200 y {
+    id: numero, 
+    nombre:string, 
+    descripcion:string, 
+    categoria_id:numero, 
+    persona_id:numero/null
+    } modificado o bien 
 status 413, {mensaje: <descripcion del error>} "error inesperado",  "solo se puede modificar la descripcion del libro
 
 PUT '/libro/prestar/:id' y {id:numero, persona_id:numero} 

@@ -43,19 +43,25 @@ const libroGetUno = async (req, res = response) => {
         id,
         nombre,
         descripcion,
-        categoria,
+        categoria_id,
         persona_id
     });
 }
 
-const libroPut = (req, res = response) => {
+const libroPut = async (req, res = response) => {
 
+    
+    let { id } = req.params    
+    let { descripcion, ...resto} = req.body;
+    descripcion = descripcion.toUpperCase();
+    let libro = await Libro.findByIdAndUpdate(id,{descripcion});
+    const { nombre, _id, categoria_id,persona_id  } = libro;
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        _id,
+        nombre,
+        descripcion,
+        categoria_id,
+        persona_id
     });
 }
 
