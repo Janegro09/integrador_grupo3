@@ -66,6 +66,15 @@ const existeCategoriaEnLibros = async (id) => {
   }
 }
 
+const existeIdPersonaEnLibros = async (id) => {
+    
+  const encontradoEnLibros = await Libro.findOne( {persona_id:id} );
+  
+  if( encontradoEnLibros ) {
+    throw new Error(`No se puede borrar la persona con el id ${id} porque está siendo usada`);
+  }
+}
+
 const existeNombreLibro = async ( name ) => {
     
   let nombre = name.toUpperCase();
@@ -85,5 +94,6 @@ module.exports = {
     existeId,
     existeIdPersona,
     existeCategoriaEnLibros,
-    existeNombreLibro
+    existeNombreLibro,
+    existeIdPersonaEnLibros
 }

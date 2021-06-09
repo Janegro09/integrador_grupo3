@@ -62,14 +62,18 @@ const personaPut = async (req, res = response) => {
     });
 }
 
-const personaDelete = (req, res = response) => {
+const personaDelete = async (req, res = response) => {
 
+
+    const { id } = req.params;
+    // Borrado fisico
+    await Persona.findByIdAndDelete(id);
+
+    // Borrado logico
+    // const { nombre } = await Categoria.findByIdAndUpdate({estado:false});
+    
     res.json({
-        id: "numerico",
-        nombre:"string",
-        apellido: "string",
-        alias: "string",
-        email: "string"
+        msj: "Se borró correctamente"
     });
 }
 

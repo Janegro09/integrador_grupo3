@@ -7,7 +7,12 @@ const {
     personaPut, 
     personaGetUno, 
     personaDelete } = require('../controller/personas');
-const { existeMail, existeIdPersona } = require('../helpers/db-validators');
+
+const { 
+    existeMail, 
+    existeIdPersona,
+    existeIdPersonaEnLibros } = require('../helpers/db-validators');
+
 const { validarCampos } = require('../middlewares/validar-campos');
 
 const router = Router();
@@ -36,9 +41,14 @@ router.put('/:id', [
     check('apellido','El apellido no debe ser vacio').not().isEmpty(),
     check('alias','El alias no debe ser vacio').not().isEmpty(),
     validarCampos
-],personaPut);
+], personaPut);
 
-router.delete('/', personaDelete);
+router.delete('/:id', [
+    check('id', 'No es un id válido').isMongoId(),
+    check('id').custom( existeIdPersona ),
+    check('id').custom( existeIdPersonaEnLibros ),
+    validarCampos
+], personaDelete);
 
 
 module.exports = router;
