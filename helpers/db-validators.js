@@ -18,7 +18,15 @@ const validarPersona = async ( id = '' ) => {
             throw new Error(`No existe la persona con el id ${id} en la base de datos`)
         }
     }
-  }
+}
+
+const validarLibroDisponible = async ( id = '' ) => {
+
+  const {persona_id} = await Libro.findById( id );
+  if( persona_id ) {
+      throw new Error(`Ese libro está siendo usado`);
+    }
+}
   
 const existeMail = async ( email ) => {
 
@@ -77,11 +85,20 @@ const existeCategoriaEnLibros = async (id) => {
 }
 
 const existeIdPersonaEnLibros = async (id) => {
-    
+
   const encontradoEnLibros = await Libro.findOne( {persona_id:id} );
-  
+  console.log(encontradoEnLibros)
+    
   if( encontradoEnLibros ) {
     throw new Error(`Existe una persona asignada a ese libro`);
+  }
+}
+
+const existePersonaEnLibro = async (id) => {
+
+  const { persona_id } = await Libro.findById( id );
+  if ( !persona_id ) {
+    throw new Error('Ese libro no estaba prestado')
   }
 }
 
@@ -106,5 +123,7 @@ module.exports = {
     existeCategoriaEnLibros,
     existeNombreLibro,
     existeIdPersonaEnLibros,
-    existeIdLibro
+    existeIdLibro,
+    validarLibroDisponible,
+    existePersonaEnLibro
 }

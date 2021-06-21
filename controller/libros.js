@@ -98,7 +98,7 @@ const libroPut = async (req, res = response) => {
 
 }
 
-const libroDelete = (req, res = response) => {
+const libroDelete = async (req, res = response) => {
 
     const { id } = req.params;
 
@@ -116,14 +116,51 @@ const libroDelete = (req, res = response) => {
     }
 }
 
+const libroPrestar = async (req, res = response) => {
 
+    let { id } = req.params;  
+    let { persona_id } = req.body;
+    try {
+        let encontrado = await Libro.findByIdAndUpdate(id,{persona_id});
+        console.log(encontrado)
+        res.json({
+            message:"Libro prestado correctamente"
+        });
+        
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            message: "Error inesperado"
+        });
+    }
+}
 
+const libroDevolver = async (req, res = response) => {
+
+    let { id } = req.params    
+
+    try {
+        await Libro.findByIdAndUpdate(id,{persona_id:null});
+        res.json({
+            message:"Libro devuelto correctamente"
+        });
+        
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            message: "Error inesperado"
+        });
+    }
+
+}
 
 module.exports = {
     libroPost,
     libroGet,
     libroGetUno,
     libroPut,
+    libroDevolver,
+    libroPrestar,
     libroDelete
 }
 

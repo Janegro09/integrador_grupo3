@@ -5,14 +5,17 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { 
   validarCategoria, 
   validarPersona,
-  existeIdPersonaEnLibros,
+  validarLibroDisponible,
   existeNombreLibro, 
-  existeIdLibro} = require('../helpers/db-validators');
+  existeIdLibro,
+  existePersonaEnLibro} = require('../helpers/db-validators');
 
 const { 
   libroPost, 
   libroGet, 
   libroGetUno, 
+  libroPrestar,
+  libroDevolver,
   libroPut, 
   libroDelete } = require('../controller/libros');
 
@@ -45,13 +48,13 @@ router.put('/:id', [
 ], libroPut);
 
 router.put('/prestar/:id', [
-  check('id','La categoria es requerida').not().isEmpty(),
+  check('id','El id es requerido').not().isEmpty(),
   check('id', 'No es un id válido').isMongoId(),
   check('id').custom( existeIdLibro ),
   check('persona_id','La categoria es requerida').not().isEmpty(),
   check('persona_id', 'No es un id válido').isMongoId(),
-  check('persona_id', 'No existe la persona a la que se le quiere prestar el libro').custom( validarPersona ),
-  check('id','El libro ya se encuentra prestado, no se puede prestar hasta que no se devuelva').custom( existeIdPersonaEnLibros ),
+  check('persona_id').custom( validarPersona ),
+  check('id').custom( validarLibroDisponible ),
   validarCampos
   
 ], libroPrestar);
@@ -60,10 +63,7 @@ router.put('/devolver/:id', [
   check('id','La categoria es requerida').not().isEmpty(),
   check('id', 'No es un id válido').isMongoId(),
   check('id').custom( existeIdLibro ),
-  check('persona_id','La categoria es requerida').not().isEmpty(),
-  check('persona_id', 'No es un id válido').isMongoId(),
-  check('persona_id', 'No existe la persona a la que se le quiere prestar el libro').custom( validarPersona ),
-  check('id','Ese libro no estaba prestado').custom( !existeIdPersonaEnLibros ),
+  check('id').custom( existePersonaEnLibro ),
   validarCampos
 ], libroDevolver);
 
