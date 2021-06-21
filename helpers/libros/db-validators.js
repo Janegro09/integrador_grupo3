@@ -54,7 +54,7 @@ const existeIdLibro = async ( id ) => {
   const elId = await Libro.findById( id );
 
   if( !elId ) {
-      throw new Error(`No se encontró el libro`);
+      throw new Error(`No existe id ${id} en la base de datos`);
     }
   
 }
@@ -81,7 +81,7 @@ const existeIdPersonaEnLibros = async (id) => {
   const encontradoEnLibros = await Libro.findOne( {persona_id:id} );
   
   if( encontradoEnLibros ) {
-    throw new Error(`Existe una persona asignada a ese libro`);
+    throw new Error(`No se puede borrar la persona con el id ${id} porque está siendo usada`);
   }
 }
 
@@ -97,12 +97,6 @@ const existeNombreLibro = async ( name ) => {
 }
 
 module.exports = {
-    validarCategoria,
-    validarPersona,
-    existeMail,
-    existeCategoria,
-    existeId,
-    existeIdPersona,
     existeCategoriaEnLibros,
     existeNombreLibro,
     existeIdPersonaEnLibros,
