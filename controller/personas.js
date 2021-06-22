@@ -1,7 +1,7 @@
 
 const { response } = require('express');
-
-const Persona = require('../models/persona')
+const session = require('express-session');
+const Persona = require('../models/persona');
 
 const personaPost = async (req, res = response) => {
 
@@ -24,6 +24,15 @@ const personaPost = async (req, res = response) => {
         apellido,
         alias,
         email
+    });
+}
+
+const personaLogin = async (req, res = response) => {
+
+    const personas = await Persona.find()
+
+    res.json({
+        personas
     });
 }
 

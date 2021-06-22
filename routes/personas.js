@@ -17,6 +17,8 @@ const { validarCampos } = require('../middlewares/validar-campos');
 
 const router = Router();
 
+router.get('/login', personaLogin);
+
 router.post('/', [
     check('nombre','El nombre no debe ser vacio').not().isEmpty(),
     check('apellido','El apellido no debe ser vacio').not().isEmpty(),
