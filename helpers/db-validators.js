@@ -24,8 +24,9 @@ const validarLibroDisponible = async ( id = '' ) => {
 
   const {persona_id} = await Libro.findById( id );
   if( persona_id ) {
-      throw new Error(`Ese libro está siendo usado`);
-    }
+    throw new Error(`Ese libro está siendo usado`);
+  }
+
 }
   
 const existeMail = async ( email ) => {
